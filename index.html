@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!-- https://listjs.com/docs/fuzzysearch/ -->
+<!-- https://codepen.io/javve/pen/isInl -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge" /> -->
+
+    <script
+      src="https://code.jquery.com/jquery-1.12.4.min.js"
+      integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"
+      integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"
+      integrity="sha512-AYlzeu/5Cexb6uN6uQ0LfoRx33CgMticI4+eEsmPz9QxxyuLr0zd4MA+4hxLqISNs8769A+FVnBCuaMne6d0+w=="
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="./style.css" />
+    <script>
+      var options = {
+        valueNames: ["teams"],
+        fuzzySearch: {
+          searchClass: "fuzzy-search",
+          location: 0,
+          distance: 100,
+          threshold: 0.5,
+          multiSearch: true
+        }
+      };
+
+      $(document).ready(function () {
+        var listObj = new List("list-id", options);
+      });
+    </script>
+    <title>ListJS Test</title>
+  </head>
+  <body>
+    <h1>Test Fuzzy Search Algorithm</h1>
+    <div>
+      Oops. this is a fail. Use combinations of D, B, T, C, S in search box. I'm
+      looking for boolean OR functionality
+    </div>
+    <div id="list-id">
+      <input type="text" class="fuzzy-search" />
+      <ul class="list">
+        <li>
+          <p class="name">Arnie Apple</p>
+          <p class="game">golf</p>
+          <p class="teams">D,B,T,C,S</p>
+        </li>
+        <li>
+          <p class="name">Bernard Bernoulli</p>
+          <p class="game">Tic Tac Toe</p>
+          <p class="teams">D,S</p>
+        </li>
+        <li>
+          <p class="name">Christina Cross</p>
+          <p class="game">foosball</p>
+          <p class="teams">T</p>
+        </li>
+        <li>
+          <p class="name">Guybrush Threepwood</p>
+          <p class="game">The Secret of Monkey Island</p>
+          <p class="teams">B,T,C,S</p>
+        </li>
+        <li>
+          <p class="name">John Doe</p>
+          <p class="game">Maniac Mansion</p>
+          <p class="teams">D,C</p>
+        </li>
+        <li>
+          <p class="name">Manny Calavera</p>
+          <p class="game">Chess</p>
+          <p class="teams">S</p>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
