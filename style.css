@@ -22,3 +22,10 @@
     margin-right: 2vh;
 }
 
+form.team_select {
+  margin: 5%;
+}
+
+.headerNote{
+  margin: 2%;
+}
