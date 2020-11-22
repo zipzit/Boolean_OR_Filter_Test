@@ -8,19 +8,10 @@
         <!-- <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.js" integrity="sha512-b/DMBeOiuqAIjXT0eXXI3vR+zoH09WGZdOkZ30SarP0y3nwEyYyLl7mXjWJ/PhZqG5RRROHAuiBpNnKbHxzYKg==" crossorigin="anonymous"></script>
         <!-- <script
-     src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"
-     integrity="sha512-AYlzeu/5Cexb6uN6uQ0LfoRx33CgMticI4+eEsmPz9QxxyuLr0zd4MA+4hxLqISNs8769A+FVnBCuaMne6d0+w=="
-     crossorigin="anonymous"></script>     -->
-<!--         <style type="text/css">
-        
-            /* Lets use a Google Web Font :)  */
-            @import url(http://fonts.googleapis.com/css?family=Finger+Paint);
-            @import url(http://fonts.googleapis.com/css?family=Josefin+Sans);
+         src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"
+         integrity="sha512-AYlzeu/5Cexb6uN6uQ0LfoRx33CgMticI4+eEsmPz9QxxyuLr0zd4MA+4hxLqISNs8769A+FVnBCuaMne6d0+w=="
+         crossorigin="anonymous"></script>     -->
 
-            body {
-                font-family: cursive, Josefin Sans;
-            }
-        </style> -->
         <link rel="stylesheet" href="style.css">
 
         <script>
@@ -44,16 +35,13 @@
             function OnChangeCheckbox(checkbox, listObj) {
                 if (checkbox.checked) {
                     console.log("The check box is checked. " + checkbox.value);
-                    // teamArray.push(checkbox.value);
                     teamKey += parseInt(checkbox.value, 10);
                 } else {
                     console.log("The check box is not checked.");
                     // remove value from teamArray
-                    // teamArray = teamArray.filter(item => item !== checkbox.value)
                     teamKey -= parseInt(checkbox.value, 10);
                 }
                 console.log("teamKey: " + dec2bin(teamKey));
-                // listObj = new List("list-id", options);
                 listObj.filter(filterList);
             }
 
