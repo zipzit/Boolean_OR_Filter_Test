@@ -1,86 +1,178 @@
 <!DOCTYPE html>
-<!-- https://listjs.com/docs/fuzzysearch/ -->
-<!-- https://codepen.io/javve/pen/isInl -->
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
-    <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge" /> -->
 
-    <script
-      src="https://code.jquery.com/jquery-1.12.4.min.js"
-      integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"
-      integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"
-      integrity="sha512-AYlzeu/5Cexb6uN6uQ0LfoRx33CgMticI4+eEsmPz9QxxyuLr0zd4MA+4hxLqISNs8769A+FVnBCuaMne6d0+w=="
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="./style.css" />
-    <script>
-      var options = {
-        valueNames: ["teams"],
-        fuzzySearch: {
-          searchClass: "fuzzy-search",
-          location: 0,
-          distance: 100,
-          threshold: 0.5,
-          multiSearch: true
-        }
-      };
+    <head>
+        <meta charset="utf-8" />
+        <title>Boolean OR List Filtering</title>
+        <!--  CDN content from June 2016 -->
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+        <!-- <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.js" integrity="sha512-b/DMBeOiuqAIjXT0eXXI3vR+zoH09WGZdOkZ30SarP0y3nwEyYyLl7mXjWJ/PhZqG5RRROHAuiBpNnKbHxzYKg==" crossorigin="anonymous"></script>
+        <!-- <script
+     src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"
+     integrity="sha512-AYlzeu/5Cexb6uN6uQ0LfoRx33CgMticI4+eEsmPz9QxxyuLr0zd4MA+4hxLqISNs8769A+FVnBCuaMne6d0+w=="
+     crossorigin="anonymous"></script>     -->
+        <style type="text/css">
+            .team_select div {
+                float: left;
+                margin-right: 7vh;
+            }
 
-      $(document).ready(function () {
-        var listObj = new List("list-id", options);
-      });
-    </script>
-    <title>ListJS Test</title>
-  </head>
-  <body>
-    <h1>Test Fuzzy Search Algorithm</h1>
-    <div>
-      Oops. this is a fail. Use combinations of D, B, T, C, S in search box. I'm
-      looking for boolean OR functionality
-    </div>
-    <div id="list-id">
-      <input type="text" class="fuzzy-search" />
-      <ul class="list">
-        <li>
-          <p class="name">Arnie Apple</p>
-          <p class="game">golf</p>
-          <p class="teams">D,B,T,C,S</p>
-        </li>
-        <li>
-          <p class="name">Bernard Bernoulli</p>
-          <p class="game">Tic Tac Toe</p>
-          <p class="teams">D,S</p>
-        </li>
-        <li>
-          <p class="name">Christina Cross</p>
-          <p class="game">foosball</p>
-          <p class="teams">T</p>
-        </li>
-        <li>
-          <p class="name">Guybrush Threepwood</p>
-          <p class="game">The Secret of Monkey Island</p>
-          <p class="teams">B,T,C,S</p>
-        </li>
-        <li>
-          <p class="name">John Doe</p>
-          <p class="game">Maniac Mansion</p>
-          <p class="teams">D,C</p>
-        </li>
-        <li>
-          <p class="name">Manny Calavera</p>
-          <p class="game">Chess</p>
-          <p class="teams">S</p>
-        </li>
-      </ul>
-    </div>
-  </body>
+            /* Lets use a Google Web Font :)  */
+            @import url(http://fonts.googleapis.com/css?family=Finger+Paint);
+            @import url(http://fonts.googleapis.com/css?family=Josefin+Sans);
+
+            body {
+                font-family: cursive, Josefin Sans;
+            }
+        </style>
+
+        <script>
+            var options = {
+                valueNames: ["teams"]
+            };
+
+            function dec2bin(dec) {
+                return (dec >>> 0).toString(2).padStart(5, '0');
+            }
+
+            var listObj;
+
+            $(document).ready(function() {
+                listObj = new List("list-id", options);
+            })
+                // var teamKey = "DBTCS" // ["D", "B", "T", "C", "S"];
+                var teamKey = 16 + 8 + 4 + 2 + 1;
+                console.log("teamKey: ", dec2bin(teamKey))
+
+                function OnChangeCheckbox(checkbox, listObj) {
+                    if (checkbox.checked) {
+                        console.log("The check box is checked. " + checkbox.value);
+                        // teamArray.push(checkbox.value);
+                        teamKey += parseInt(checkbox.value, 10);
+                    } else {
+                        console.log("The check box is not checked.");
+                        // remove value from teamArray
+                        // teamArray = teamArray.filter(item => item !== checkbox.value)
+                        teamKey -= parseInt(checkbox.value, 10);
+                    }
+                    console.log("teamKey: " + dec2bin(teamKey));
+                    // listObj = new List("list-id", options);
+                    listObj.filter(filterList);
+                }
+
+                function filterList(item) {
+                    console.log("indiv value: ", dec2bin(item.values().teams), " teamKey: ", dec2bin(teamKey) )
+                    console.log( "     Bitwise And: ", dec2bin(item.values().teams & teamKey));
+
+                    if (item.values().teams & teamKey) {
+                        console.log("    pass: ", item.values().teams & teamKey);
+                        return true;
+                    } else {
+                        console.log("    fail: ", item.values().teams & teamKey);
+                        return false;
+                    }
+                }
+
+                // var listObj = new List("list-id", options);
+                // listObj.filter(filterList)
+
+                // listObj.filter(function(item) {
+                //     console.log("indiv value: ", dec2bin(item.values().teams), " teamKey: ", dec2bin(teamKey) )
+                //     console.log( "     Bitwise And: ", dec2bin(item.values().teams & teamKey));
+                //
+                //     if (item.values().teams & teamKey) {
+                //         console.log("    pass: ", item.values().teams & teamKey);
+                //         return true;
+                //     } else {
+                //         console.log("    fail: ", item.values().teams & teamKey);
+                //         return false;
+                //     }
+                // });
+
+            // });
+        </script>
+    </head>
+
+    <body>
+        <div>
+            <form class="team_select" onsubmit="return handleData()" method="post" action="https://postman-echo.com/post">
+                <p>Select team(s) to display:</p>
+                <div>
+                    <input type="checkbox" name="team" id="designer" value="16" onclick="OnChangeCheckbox (this, listObj)" checked>
+                    <label for="designer">Designer</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="team" id="bookkeeper" value="8" onclick="OnChangeCheckbox (this, listObj)" checked>
+                    <label for="bookkeeper">Bookkeeper</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="team" id="teacher" value="4" onclick="OnChangeCheckbox (this, listObj)" checked>
+                    <label for="teacher">Teacher</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="team" id="chemist" value="2" onclick="OnChangeCheckbox (this, listObj)" checked>
+                    <label for="chemist">Chemist</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="team" id="safety_inspector" value="1" onclick="OnChangeCheckbox (this, listObj)" checked>
+                    <label for="safety_inspector">Saftey Inspector</label>
+                </div>
+                <!-- <div>
+                    <input type="submit" name="submit" value="Submit" />
+                </div> -->
+            </form>
+        </div>
+        <div>
+            Use combinations of D, B, T, C, S in search box.
+        </div>
+        <div id="list-id">
+            <input type="text" class="search" />
+            <ul class="list">
+                <li>
+                    <p class="name">Arnie Apricot</p>
+                    <p class="game">golf</p>
+                    <p class="teams">31</p>
+                    <p class="teamsView">1,1,1,1,1 = 31</p>
+                </li>
+                <li>
+                    <p class="name">Bernard Bernoulli</p>
+                    <p class="game">Tic Tac Toe</p>
+                    <p class="teams">17</p>
+                    <p class="teamsView">1,0,0,0,1 = 17</p>
+                </li>
+                <li>
+                    <p class="name">Christina Cross</p>
+                    <p class="game">foosball</p>
+                    <p class="teams">4</p>
+                    <p class="teamsView">0,0,1,0,0 = 4</p>
+                </li>
+                <li>
+                    <p class="name">Douglas DoGood</p>
+                    <p class="game">The Secret of Monkey Island</p>
+                    <p class="teams">15</p>
+                    <p class="teamsView">0,1,1,1,1 = 15</p>
+                </li>
+                <li>
+                    <p class="name">Ernie Everyready</p>
+                    <p class="game">Risk</p>
+                    <p class="teams">23</p>
+                    <p class="teamsView">1,0,1,1,1 = 23</p>
+                </li>
+                <li>
+                    <p class="name">Frank Francisco</p>
+                    <p class="game">Maniac Mansion</p>
+                    <p class="teams">18</p>
+                    <p class="teamsView">1,0,0,1,0 = 18</p>
+                </li>
+                <li>
+                    <p class="name">Guy GooseFat</p>
+                    <p class="game">Poker</p>
+                    <p class="teams">1</p>
+                    <p class="teamsView">0,0,0,0,1 = 1</p>
+                </li>
+            </ul>
+        </div>
+    </body>
+
 </html>
