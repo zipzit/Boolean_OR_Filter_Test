@@ -8,3 +8,10 @@
 .teams {
   margin-left: 15%;
 }
+
+/* Style the selection boxes */
+.team_select div {
+    float: left;
+    margin-right: 2vh;
+}
+
