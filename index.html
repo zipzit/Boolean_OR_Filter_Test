@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="utf-8" />
         <title>Boolean OR List Filtering</title>
@@ -41,56 +40,38 @@
             $(document).ready(function() {
                 listObj = new List("list-id", options);
             })
-                // var teamKey = "DBTCS" // ["D", "B", "T", "C", "S"];
-                var teamKey = 16 + 8 + 4 + 2 + 1;
-                console.log("teamKey: ", dec2bin(teamKey))
+            
+            var teamKey = 16 + 8 + 4 + 2 + 1;
+            console.log("teamKey: ", dec2bin(teamKey))
 
-                function OnChangeCheckbox(checkbox, listObj) {
-                    if (checkbox.checked) {
-                        console.log("The check box is checked. " + checkbox.value);
-                        // teamArray.push(checkbox.value);
-                        teamKey += parseInt(checkbox.value, 10);
-                    } else {
-                        console.log("The check box is not checked.");
-                        // remove value from teamArray
-                        // teamArray = teamArray.filter(item => item !== checkbox.value)
-                        teamKey -= parseInt(checkbox.value, 10);
-                    }
-                    console.log("teamKey: " + dec2bin(teamKey));
-                    // listObj = new List("list-id", options);
-                    listObj.filter(filterList);
+            function OnChangeCheckbox(checkbox, listObj) {
+                if (checkbox.checked) {
+                    console.log("The check box is checked. " + checkbox.value);
+                    // teamArray.push(checkbox.value);
+                    teamKey += parseInt(checkbox.value, 10);
+                } else {
+                    console.log("The check box is not checked.");
+                    // remove value from teamArray
+                    // teamArray = teamArray.filter(item => item !== checkbox.value)
+                    teamKey -= parseInt(checkbox.value, 10);
                 }
+                console.log("teamKey: " + dec2bin(teamKey));
+                // listObj = new List("list-id", options);
+                listObj.filter(filterList);
+            }
 
-                function filterList(item) {
-                    console.log("indiv value: ", dec2bin(item.values().teams), " teamKey: ", dec2bin(teamKey) )
-                    console.log( "     Bitwise And: ", dec2bin(item.values().teams & teamKey));
+            function filterList(item) {
+                console.log("indiv value: ", dec2bin(item.values().teams), " teamKey: ", dec2bin(teamKey) )
+                console.log( "     Bitwise And: ", dec2bin(item.values().teams & teamKey));
 
-                    if (item.values().teams & teamKey) {
-                        console.log("    pass: ", item.values().teams & teamKey);
-                        return true;
-                    } else {
-                        console.log("    fail: ", item.values().teams & teamKey);
-                        return false;
-                    }
+                if (item.values().teams & teamKey) {
+                    console.log("    pass: ", item.values().teams & teamKey);
+                    return true;
+                } else {
+                    console.log("    fail: ", item.values().teams & teamKey);
+                    return false;
                 }
-
-                // var listObj = new List("list-id", options);
-                // listObj.filter(filterList)
-
-                // listObj.filter(function(item) {
-                //     console.log("indiv value: ", dec2bin(item.values().teams), " teamKey: ", dec2bin(teamKey) )
-                //     console.log( "     Bitwise And: ", dec2bin(item.values().teams & teamKey));
-                //
-                //     if (item.values().teams & teamKey) {
-                //         console.log("    pass: ", item.values().teams & teamKey);
-                //         return true;
-                //     } else {
-                //         console.log("    fail: ", item.values().teams & teamKey);
-                //         return false;
-                //     }
-                // });
-
-            // });
+            }
         </script>
     </head>
 
@@ -124,10 +105,9 @@
             </form>
         </div>
         <div>
-            Use combinations of D, B, T, C, S in search box.
+            Select roles/skills ( Designer, Bookkeeper, Teacher, Chemist, Safety Inspector) via checkboxes.  Note, an individual may have multiple roles / skills.  
         </div>
         <div id="list-id">
-            <input type="text" class="search" />
             <ul class="list">
                 <li>
                     <p class="name">Arnie Apricot</p>
