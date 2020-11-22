@@ -1,12 +1,19 @@
 .name {
   font-size: 1.5rem;
   color: blue;
+  float: left;
 }
 .game {
   margin-left: 5%;
+  float: left;
 }
 .teams {
-  margin-left: 15%;
+  margin-left: 5%;
+  float: left;
+}
+.teamsView{
+  margin-left: 5%;
+  float: left;
 }
 
 /* Style the selection boxes */
