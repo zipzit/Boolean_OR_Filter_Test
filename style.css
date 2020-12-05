@@ -4,6 +4,9 @@
   float: left;
   width: 185px;
 }
+ul li {
+  height: 75px;
+}
 .game {
   margin-left: 5%;
   float: left;
